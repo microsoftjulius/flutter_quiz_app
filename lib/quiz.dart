@@ -12,18 +12,11 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  Widget? activeScreen;
-
-  @override
-  void initState() { //initialize the widget
-    activeScreen = StartScreen(
-        switchScreen); // call the start screen that has a button for switching screen, so call it within the switchScreen
-    super.initState();
-  }
+  var activeScreen = 'start-screen';
 
   void switchScreen() {
     setState(() {
-      activeScreen = const QuestionsScreen(); //to be called on clicking the button
+      activeScreen = 'questions-screen'; //sets the state after clicking the button
     });
   }
 
@@ -41,7 +34,9 @@ class _QuizState extends State<Quiz> {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               )),
-              child: activeScreen)),
+              child: activeScreen == 'start-screen'
+                  ? StartScreen(switchScreen)
+                  : const QuestionsScreen())),
     );
   }
 }
